@@ -33,6 +33,10 @@
       aspect-ratio: 1 / 1;
       font-size: 1rem;
       cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    .cell.assigned {
+      background-color: #f88; /* червоний фон для зайнятих кліток */
     }
     .tooltip {
       position: absolute;
@@ -62,11 +66,8 @@
 
   <script>
     const assignments = {
-      1: "Іванов І.",
-      2: "Петренко П.",
-      37: "Сидоренко С.",
       38: "Сусла М.В.",
-      39: "Сусла В.В"
+      39: "Сусла В.В."
       // додайте інші при потребі
     };
 
@@ -77,7 +78,16 @@
           const num = start + row + col * 6;
           const cell = document.createElement('div');
           cell.className = 'cell';
-          cell.innerHTML = `<span>${num}</span><div class=\"tooltip\">${assignments[num] || 'Порожньо'}</div>`;
+          // якщо є призначення – додаємо клас assigned
+          if (assignments[num]) {
+            cell.classList.add('assigned');
+          }
+          // контент клітки та підказка
+          const tooltipText = assignments[num] || 'Порожньо';
+          cell.innerHTML = `
+            <span>${num}</span>
+            <div class="tooltip">${tooltipText}</div>
+          `;
           container.appendChild(cell);
         }
       }
