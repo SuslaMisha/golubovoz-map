@@ -11,8 +11,8 @@
     }
     .container {
       display: grid;
-      grid-template-columns: repeat(9, 60px);
-      grid-template-rows: repeat(4, 60px);
+      grid-template-columns: repeat(6, 60px);
+      grid-template-rows: repeat(6, 60px);
       gap: 20px 10px;
       margin-bottom: 40px;
     }
@@ -58,11 +58,11 @@
       // додайте інші при потребі
     };
 
-    function createVerticalColumns(containerId, start) {
+    function createLayout(containerId, start) {
       const container = document.getElementById(containerId);
-      for (let col = 0; col < 9; col++) {
-        for (let row = 0; row < 4; row++) {
-          const num = start + col * 4 + row;
+      for (let row = 0; row < 6; row++) {
+        for (let col = 0; col < 6; col++) {
+          const num = start + row + col * 6;
           const cell = document.createElement('div');
           cell.className = 'cell';
           cell.innerHTML = `${num}<div class="tooltip">${assignments[num] || "Порожньо"}</div>`;
@@ -71,8 +71,8 @@
       }
     }
 
-    createVerticalColumns("side1", 1);
-    createVerticalColumns("side2", 37);
+    createLayout("side1", 1);
+    createLayout("side2", 37);
   </script>
 </body>
 </html>
