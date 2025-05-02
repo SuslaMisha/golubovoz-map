@@ -2,38 +2,48 @@
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Карта голубовоза</title>
   <style>
     body {
+      margin: 0;
+      padding: 16px;
       font-family: Arial, sans-serif;
       background: #f4f4f4;
-      padding: 20px;
+      box-sizing: border-box;
+    }
+    h2 {
+      margin: 24px 0 12px;
+      font-size: 1.2rem;
     }
     .container {
       display: grid;
-      grid-template-columns: repeat(6, 60px);
-      grid-template-rows: repeat(6, 60px);
-      gap: 20px 10px;
-      margin-bottom: 40px;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+      width: 100%;
+      max-width: 100%;
     }
     .cell {
-      background-color: white;
+      background-color: #fff;
       border: 1px solid #aaa;
-      padding: 10px;
-      text-align: center;
-      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       position: relative;
+      aspect-ratio: 1 / 1;
+      font-size: 1rem;
+      cursor: pointer;
     }
     .tooltip {
       position: absolute;
-      bottom: -30px;
+      bottom: -28px;
       left: 50%;
       transform: translateX(-50%);
       background: #333;
       color: #fff;
-      padding: 5px;
+      padding: 4px 6px;
       border-radius: 4px;
-      font-size: 12px;
+      font-size: 0.8rem;
       white-space: nowrap;
       display: none;
       z-index: 10;
@@ -54,7 +64,9 @@
     const assignments = {
       1: "Іванов І.",
       2: "Петренко П.",
-      37: "Сидоренко С."
+      37: "Сидоренко С.",
+      38: "Сусла М.В.",
+      39: "Сусла В.В"
       // додайте інші при потребі
     };
 
@@ -65,14 +77,14 @@
           const num = start + row + col * 6;
           const cell = document.createElement('div');
           cell.className = 'cell';
-          cell.innerHTML = `${num}<div class="tooltip">${assignments[num] || "Порожньо"}</div>`;
+          cell.innerHTML = `<span>${num}</span><div class=\"tooltip\">${assignments[num] || 'Порожньо'}</div>`;
           container.appendChild(cell);
         }
       }
     }
 
-    createLayout("side1", 1);
-    createLayout("side2", 37);
+    createLayout('side1', 1);
+    createLayout('side2', 37);
   </script>
 </body>
 </html>
