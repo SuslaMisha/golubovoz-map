@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Карта голубовоза</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 20px;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: repeat(9, 60px);
+      grid-template-rows: repeat(4, 60px);
+      gap: 20px 10px;
+      margin-bottom: 40px;
+    }
+    .cell {
+      background-color: white;
+      border: 1px solid #aaa;
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+      position: relative;
+    }
+    .tooltip {
+      position: absolute;
+      bottom: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 5px;
+      border-radius: 4px;
+      font-size: 12px;
+      white-space: nowrap;
+      display: none;
+      z-index: 10;
+    }
+    .cell:hover .tooltip {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <h2>Сторона 1 (Клітки 1–36)</h2>
+  <div class="container" id="side1"></div>
+
+  <h2>Сторона 2 (Клітки 37–72)</h2>
+  <div class="container" id="side2"></div>
+
+  <script>
+    const assignments = {
+      1: "Іванов І.",
+      2: "Петренко П.",
+      37: "Сидоренко С."
+      // додайте інші при потребі
+    };
+
+    function createVerticalColumns(containerId, start) {
+      const container = document.getElementById(containerId);
+      for (let col = 0; col < 9; col++) {
+        for (let row = 0; row < 4; row++) {
+          const num = start + col * 4 + row;
+          const cell = document.createElement('div');
+          cell.className = 'cell';
+          cell.innerHTML = `${num}<div class="tooltip">${assignments[num] || "Порожньо"}</div>`;
+          container.appendChild(cell);
+        }
+      }
+    }
+
+    createVerticalColumns("side1", 1);
+    createVerticalColumns("side2", 37);
+  </script>
+</body>
+</html>
