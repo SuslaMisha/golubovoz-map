@@ -35,9 +35,11 @@
       cursor: pointer;
       transition: background-color 0.2s;
     }
-    .cell.assigned {
-      background-color: #f88; /* червоний фон для зайнятих кліток */
-    }
+    /* кольори для різних клубів */
+    .assigned-horostkiv { background-color: #f88; }
+    .assigned-chortkiv { background-color: #8f8; }
+    .assigned-khmelnytsky { background-color: #88f; }
+
     .tooltip {
       position: absolute;
       bottom: -28px;
@@ -65,9 +67,30 @@
   <div class="container" id="side2"></div>
 
   <script>
+    // Призначення: номер -> {name, club}
     const assignments = {
-      38: "Сусла М.В.",
-      39: "Сусла В.В."
+      38: { name: "Сусла М.В.", club: "Хоростків" },
+      39: { name: "Сусла В.В.", club: "Хоростків" },
+      9:  { name: "Ковальов В.Я.", club: "Хоростків" },
+      10: { name: "Ковальов В.Я.", club: "Хоростків" },
+      14: { name: "Ваверчак В.Я.", club: "Хоростків" },
+      15: { name: "Ваверчак В.Я.", club: "Хоростків" },
+      16: { name: "Ваверчак В.Я.", club: "Хоростків" },
+      34: { name: "Кушнір  А.І.", club: "Хоростків" },
+      26: { name: "Бохонко  І.П.", club: "Хоростків" },
+      3:  { name: "Тичковський  О.В.", club: "Хоростків" },
+      4:  { name: "Тичковський  О.В.", club: "Хоростків" },
+      44: { name: "Паламар  Р.Т.", club: "Хоростків" },
+      45: { name: "Паламар  Р.Т.", club: "Хоростків" },
+      41: { name: "Ворончак  В.В.", club: "Хоростків" },
+      32: { name: "Чорненький  В.П.", club: "Хоростків" },
+      33: { name: "Чорненький  В.П.", club: "Хоростків" },
+      8:  { name: "Попелюх  Т.І.", club: "Хоростків" },
+      9:  { name: "Попелюх  Т.І.", club: "Хоростків" },
+      46: { name: "Пшик І.М.", club: "Хоростків" },
+      40: { name: "Пшик І.М.", club: "Хоростків" },
+      47: { name: "Бігун І.М.", club: "Хоростків" },
+
       // додайте інші при потребі
     };
 
@@ -78,12 +101,18 @@
           const num = start + row + col * 6;
           const cell = document.createElement('div');
           cell.className = 'cell';
-          // якщо є призначення – додаємо клас assigned
+          
+          // Якщо є призначення, додаємо відповідний клас кольору
           if (assignments[num]) {
-            cell.classList.add('assigned');
+            const { club } = assignments[num];
+            let cls = '';
+            if (club === 'Хоростків') cls = 'assigned-horostkiv';
+            else if (club === 'Чортків') cls = 'assigned-chortkiv';
+            else if (club === 'Хмельницький') cls = 'assigned-khmelnytsky';
+            cell.classList.add(cls);
           }
-          // контент клітки та підказка
-          const tooltipText = assignments[num] || 'Порожньо';
+
+          const tooltipText = assignments[num]?.name || 'Порожньо';
           cell.innerHTML = `
             <span>${num}</span>
             <div class="tooltip">${tooltipText}</div>
